@@ -1,0 +1,64 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: cloud-grafana
+  namespace: default
+  labels:
+    app: cloud-grafana
+spec:
+  revisionHistoryLimit: 10
+  template:
+    metadata:
+      labels:
+        app: cloud-grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 3000
+          name: grafana
+          # hostPort: 3000
+        env:
+        - name: GF_SECURITY_ADMIN_USER
+          value: admin
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: admin
+        resources:
+          limits:
+            cpu: 100m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 256Mi
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          subPath: grafana
+          name: storage
+#      securityContext:
+#        fsGroup: 472
+#        runAsUser: 472
+      volumes:
+      - name: storage
+        hostPath:
+          path: /mnt/grafana
+        #persistentVolumeClaim:
+        #  claimName: grafana
+      nodeSelector:
+        name: k8s-node01
+---
+
+apiVersion: v1
+kind: Service
+metadata: 
+  name: cloud-grafana-dashboard
+spec:
+  type: NodePort
+  ports:
+  - port: 3000
+    nodePort: 30005
+    protocol: TCP
+    targetPort: 3000
+  selector:
+    app: cloud-grafana
