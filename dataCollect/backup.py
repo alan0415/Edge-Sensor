@@ -9,7 +9,8 @@ edgedb = InfluxDBClient('192.168.0.7', '8086', 'telegraf', 'telegraf', 'db0')
 clouddb = InfluxDBClient('192.168.0.3', '8086', 'telegraf', 'telegraf', 'LightSensorBackup')
 
 # query data from edge db
-result = edgedb.query('select * from Sensor where time > now() - 1')
+#result = edgedb.query('select * from Sensor where time > now() - 1')
+result = edgedb.query('select * from Sensor')
 result_list = list(result.get_points())
 
 # upload to cloud
