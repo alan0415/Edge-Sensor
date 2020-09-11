@@ -18,11 +18,11 @@ def on_message(client, userdata, msg):
     # data extract
     extract_light = sensorData(msg.payload.decode('utf-8'))
 
-    #print(type(extract_light))
+    print(type(extract_light))
     
     # get current time
     dt1 = datetime.utcnow().replace(tzinfo=timezone.utc)
-    dt2 = dt1.astimezone(timezone(timedelta(hours=8))) # timezone: UTC+8
+    dt2 = dt1.astimezone(timezone(timedelta(hours=0))) # timezone: UTC+8
     time = dt2.strftime("%Y-%m-%d %H:%M:%S")
 
 
