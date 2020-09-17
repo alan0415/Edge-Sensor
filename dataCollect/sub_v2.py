@@ -9,7 +9,7 @@ dbClient = InfluxDBClient('192.168.0.7', '8086', 'telegraf', 'telegraf', 'db0')
 def on_connect(client, userdata, flags, rc):
     print("Connect with result code" + str(rc))
 
-    client.subscribe("channels/Light")
+    client.subscribe("channels/light/")
 
 def on_message(client, userdata, msg):
     # log output subscribe data
