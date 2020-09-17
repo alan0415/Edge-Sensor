@@ -1,28 +1,13 @@
 #include <ESP8266WiFi.h> 
 #include <PubSubClient.h>
-//const char* ssid = "Nokia 6.1 Plus";
 const char* ssid = "D-Link_DIR-612";
-//const char* password = "alan0415";
 const char* password = "055260322";
 const char* mqttServer = "192.168.0.7";  // MQTT伺服器位址
-//const char* mqttServer = "192.168.43.117";  // MQTT伺服器位址
-
-//const char* ssid = "000D0B5E574E";
-//const char* password = "0123456789";
-//const char* mqttServer = "192.168.11.103"; 
-
-//const char* ssid = "ASUS_X01AD";
-//const char* password = "29c33dfc0b4e";
-//const char* mqttServer = "192.168.43.176"; 
-
-
-//const char* mqttUserName = "user";  // 使用者名稱，隨意設定。
-//const char* mqttPwd = "alan0415";  // MQTT密碼
 const char* clientID = "Light";      // 用戶端ID，隨意設定。
-const char* topic = "channels/Light/";
+const char* topic = "channels/light/";
 
 unsigned long prevMillis = 0;  // 暫存經過時間（毫秒）
-const long interval = 3000;  // 上傳資料的間隔時間，8秒。
+const long interval = 2000;  // 上傳資料的間隔時間，2秒。
 String msgStr = "";      // 暫存MQTT訊息字串
 
 char json[25];
@@ -52,8 +37,8 @@ void reconnect() {
     } else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
-      Serial.println(" try again in 5 seconds");
-      delay(4000);  // 等5秒之後再重試
+      Serial.println(" try again in 4 seconds");
+      delay(4000);  // 等4秒之後再重試
     }
   }
 }
@@ -70,7 +55,7 @@ void loop() {
   }
   client.loop();
 
-  // 等待20秒
+  // 等待2秒
   if (millis() - prevMillis > interval) {
     prevMillis = millis();
 
