@@ -6,7 +6,7 @@ from datetime import datetime, timezone, timedelta
 
 # edge influxdb connect
 edgedb = InfluxDBClient('192.168.0.7', '8086', 'telegraf', 'telegraf', 'db0')
-clouddb = InfluxDBClient('192.168.0.3', '8086', 'telegraf', 'telegraf', 'LightSensorBackup')
+clouddb = InfluxDBClient('192.168.0.3', '30006', 'telegraf', 'telegraf', 'LightSensorBackup')
 
 # query data from edge db
 #result = edgedb.query('select * from Sensor where time > now() - 1')
